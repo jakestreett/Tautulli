@@ -561,7 +561,14 @@ class PmsConnect(object):
                 if m.getElementsByTagName('Guid'):
                     for guid in m.getElementsByTagName('Guid'):
                         guids.append(helpers.get_xml_attr(guid, 'id'))
-
+                try:
+                     meta = self.get_metadata_details(helpers.get_xml_attr(m, 'ratingKey'))
+                     media_info = meta['media_info']
+                     if media_info:
+                         video_resolution = media_info[0]['video_resolution']
+                         video_full_resolution = media_info[0]['video_full_resolution']
+                except Exception as e:
+                    logger.error('Tautulli Pmsconnect :: Unable to determin video resolution: ' + str(e))
                 recent_item = {'media_type': helpers.get_xml_attr(m, 'type'),
                                'section_id': helpers.get_xml_attr(m, 'librarySectionID'),
                                'library_name': helpers.get_xml_attr(m, 'librarySectionTitle'),
