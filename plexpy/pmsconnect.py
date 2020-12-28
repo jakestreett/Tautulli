@@ -561,6 +561,9 @@ class PmsConnect(object):
                 if m.getElementsByTagName('Guid'):
                     for guid in m.getElementsByTagName('Guid'):
                         guids.append(helpers.get_xml_attr(guid, 'id'))
+                        
+                video_resolution = ''
+                video_full_resolution = ''
                 try:
                      meta = self.get_metadata_details(helpers.get_xml_attr(m, 'ratingKey'))
                      media_info = meta['media_info']
@@ -611,7 +614,9 @@ class PmsConnect(object):
                                'collections': collections,
                                'guids': guids,
                                'full_title': helpers.get_xml_attr(m, 'title'),
-                               'child_count': helpers.get_xml_attr(m, 'childCount')
+                               'child_count': helpers.get_xml_attr(m, 'childCount'),
+                               'video_resolution' : video_resolution,
+                               'video_full_resolution' : video_full_resolution
                                }
 
                 recents_list.append(recent_item)
